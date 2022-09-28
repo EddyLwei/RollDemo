@@ -19,6 +19,9 @@ export default class NewClass extends cc.Component {
     @property({ type: cc.Node, tooltip: "滚动列表容器" })
     head2: cc.Node = null;
 
+    @property({ type: cc.Label, tooltip: "" })
+    txt: cc.Label = null;
+
     _itemHeadWidth: number = 75;
     _targetX: number = 0;
 
@@ -54,6 +57,7 @@ export default class NewClass extends cc.Component {
         // this.head2.setPosition(new Vec3(this._itemWidth, 0, 0))
         this.head1.x = 0;
         this.head2.x = this._itemWidth;
+        this._nowP = this._itemWidth;
         //目标在第一百个，居中开始表示左侧有一半不需要滚动9/2
         let headNun = 100 - Math.ceil(9 / 2);
         let targetPosX = -this._itemHeadWidth * (headNun);  //计算停止位置
@@ -65,7 +69,8 @@ export default class NewClass extends cc.Component {
 
         this.headParent.x = 0;
 
-
+        cc.Tween.stopAll();
+        this.txt.string = "滚动中 2.45";
         let self = this;
         cc.tween(this.headParent)//, { easing: "fade" }//, { easing: t => (bezierByTime([0.3, 0, 0, 1], t)) }
             // .to(spinTime, { position: cc.v3(targetPosX, 0), }, { easing: t => (bezierByTime([0.3, 0, 0, 1], t)) })
@@ -74,14 +79,9 @@ export default class NewClass extends cc.Component {
             .call(() => {
                 // self.spinFinish();
                 console.log("结束》》》》》")
+                this.txt.string = "结束 2.45";
             })
             .start();
     }
-
-
-
-
-
-
 
 }

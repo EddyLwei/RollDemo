@@ -1,9 +1,12 @@
-import { _decorator, Component, Node, bezierByTime, tween, Vec3 } from 'cc';
+import { _decorator, Component, Node, bezierByTime, tween, Vec3, Label, Tween } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('mainSc')
 export class mainSc extends Component {
 
+
+    @property({ type: Label, tooltip: "" })
+    txt: Label = null;
 
     @property({ type: Node, tooltip: "滚动列表容器" })
     headParent: Node = null;
@@ -44,6 +47,7 @@ export class mainSc extends Component {
 
     clickStart() {
         this._showImg1 = true;
+        this._nowP = 750;
         this.head1.setPosition(new Vec3(0, 0, 0))
         this.head2.setPosition(new Vec3(this._itemWidth, 0, 0))
         //目标在第一百个，居中开始表示左侧有一半不需要滚动9/2
@@ -57,7 +61,9 @@ export class mainSc extends Component {
 
         this.headParent.setPosition(new Vec3(0, 0, 0));
 
+        Tween.stopAll();
 
+        this.txt.string = "滚动中 3.6.1";
         let self = this;
         tween(this.headParent)//, { easing: "fade" }//, { easing: t => (bezierByTime([0.3, 0, 0, 1], t)) }
             .to(spinTime, { position: new Vec3(targetPosX, 0, 0) }, { easing: t => (bezierByTime([0.3, 0, 0, 1], t)) })
@@ -66,6 +72,7 @@ export class mainSc extends Component {
             .call(() => {
                 // self.spinFinish();
                 console.log("结束》》》》》")
+                this.txt.string = "结束 2.45";
             })
             .start();
     }

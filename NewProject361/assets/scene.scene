@@ -890,6 +890,9 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "txt": {
+      "__id__": 22
+    },
     "headParent": {
       "__id__": 6
     },
